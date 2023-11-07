@@ -40,7 +40,7 @@ from seaborn._core.typing import (
 )
 from seaborn._core.exceptions import PlotSpecError
 from seaborn._core.rules import categorical_order
-from seaborn._compat import set_scale_obj, set_layout_engine
+from seaborn._compat import get_layout_engine, set_layout_engine, set_scale_obj
 from seaborn.rcmod import axes_style, plotting_context
 from seaborn.palettes import color_palette
 from seaborn.utils import _version_predates
@@ -1829,7 +1829,7 @@ class Plotter:
             set_layout_engine(self._figure, "tight")
 
         if (extent := p._layout_spec.get("extent")) is not None:
-            engine = self._figure.get_layout_engine()
+            engine = get_layout_engine(self._figure)
             if engine is None:
                 self._figure.subplots_adjust(*extent)
             else:
